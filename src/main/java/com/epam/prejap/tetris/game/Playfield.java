@@ -21,18 +21,30 @@ public class Playfield {
     private int col;
 
     //Updated constructor to check and add random blocks to beginning
+
+    /**
+     * Sole constructor of Playfield
+     *
+     * @param rows            height of grid
+     * @param cols            width of grid
+     * @param feed            block generator
+     * @param printer         displays grid to user via System.out
+     * @param isStarterBlocks determines how many blocks Playfield will start with
+     */
     public Playfield(int rows, int cols, BlockFeed feed, Printer printer, boolean isStarterBlocks) {
         this.rows = rows;
         this.cols = cols;
         this.feed = feed;
         this.printer = printer;
+        this.starterBlockAmt = isStarterBlocks ? (int) (Math.random() * rows / 2) + 1 : 0;
         grid = new byte[this.rows][this.cols];
-        if (isStarterBlocks) {
-            starterBlockAmt = (int) (Math.random() * rows / 2) + 1;
-            IntStream.rangeClosed(0, starterBlockAmt).forEach(i -> addStarterBlocks());
-        } else starterBlockAmt = 0;
+        IntStream.rangeClosed(0, starterBlockAmt).forEach(i -> addStarterBlocks());
     }
 
+    /**
+     * Generates new block starting at row 0
+     * in the center column
+     */
     public void nextBlock() {
         block = feed.nextBlock();
         row = 0;
@@ -40,6 +52,12 @@ public class Playfield {
         show();
     }
 
+    /**
+     * Shifts current block left or right one column, then down one row
+     *
+     * @param move direction of movement
+     * @return block moved down one row
+     */
     public boolean move(Move move) {
         hide();
         boolean moved;
@@ -64,7 +82,6 @@ public class Playfield {
                 row--;
         }
         forEachBrick((i, j, dot) -> grid[row + i][col + j] = dot);
-        printer.draw(grid);
     }
 
     private boolean blockSpaceIsObstructed() {
