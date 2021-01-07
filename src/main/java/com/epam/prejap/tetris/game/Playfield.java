@@ -3,6 +3,10 @@ package com.epam.prejap.tetris.game;
 import com.epam.prejap.tetris.block.Block;
 import com.epam.prejap.tetris.block.BlockFeed;
 
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.stream.IntStream;
+
 public class Playfield {
 
     private final byte[][] grid;
@@ -10,17 +14,23 @@ public class Playfield {
     private final int cols;
     private final Printer printer;
     private final BlockFeed feed;
+    public final int starterBlockAmt;
 
     private Block block;
     private int row;
     private int col;
 
-    public Playfield(int rows, int cols, BlockFeed feed, Printer printer) {
+    //Updated constructor to check and add random blocks to beginning
+    public Playfield(int rows, int cols, BlockFeed feed, Printer printer, boolean isStarterBlocks) {
         this.rows = rows;
         this.cols = cols;
         this.feed = feed;
         this.printer = printer;
         grid = new byte[this.rows][this.cols];
+        if (isStarterBlocks) {
+            starterBlockAmt = (int) (Math.random() * rows / 2) + 1;
+            IntStream.rangeClosed(0, starterBlockAmt).forEach(i -> addStarterBlocks());
+        } else starterBlockAmt = 0;
     }
 
     public void nextBlock() {
@@ -33,15 +43,39 @@ public class Playfield {
     public boolean move(Move move) {
         hide();
         boolean moved;
-            switch (move) {
-                case LEFT -> moveLeft();
-                case RIGHT -> moveRight();
-            }
-            moved = moveDown();
+        switch (move) {
+            case LEFT -> moveLeft();
+            case RIGHT -> moveRight();
+        }
+        moved = moveDown();
         show();
         return moved;
     }
 
+    private void addStarterBlocks() {
+        block = feed.nextBlock();
+        row = rows - block.rows();
+        col = (int) (Math.random() * cols - 1);
+        while (blockSpaceIsObstructed()) {
+            if (row <= rows / 2) {
+                col = (int) (Math.random() * cols - 1);
+                row = rows - block.rows();
+            } else
+                row--;
+        }
+        forEachBrick((i, j, dot) -> grid[row + i][col + j] = dot);
+        printer.draw(grid);
+    }
+
+    private boolean blockSpaceIsObstructed() {
+        for (int i = 0; i < block.rows(); i++) {
+            for (int j = 0; j < block.cols(); j++) {
+                if (grid[row + i][col + j] != 0)
+                    return true;
+            }
+        }
+        return false;
+    }
 
     private void moveRight() {
         move(0, 1);
@@ -108,5 +142,4 @@ public class Playfield {
     private interface BrickAction {
         void act(int i, int j, byte dot);
     }
-
 }
