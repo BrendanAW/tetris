@@ -8,7 +8,7 @@ import com.epam.prejap.tetris.game.Waiter;
 import com.epam.prejap.tetris.player.Player;
 import com.epam.prejap.tetris.player.RandomPlayer;
 
-import java.util.Arrays;
+import java.util.Random;
 
 class Tetris {
 
@@ -24,9 +24,10 @@ class Tetris {
 
     public Score play() {
         boolean moved;
-        int score = playfield.starterBlockAmt;
+        int score = 0;
         do {
             moved = false;
+
             playfield.nextBlock();
             score++;
 
@@ -46,11 +47,11 @@ class Tetris {
         int rows = 10;
         int cols = 20;
         int delay = 500;
-        var isStarterBlocks = Arrays.asList(args).contains("-RB") || Arrays.asList(args).contains("-rb");
+
         var feed = new BlockFeed();
         var printer = new Printer(System.out);
-        var playfield = new Playfield(rows, cols, feed, printer, isStarterBlocks);
-        var game = new Tetris(playfield, new Waiter(delay), new RandomPlayer());
+        var playfield = new Playfield(rows, cols, feed, printer);
+        var game = new Tetris(playfield, new Waiter(delay), new RandomPlayer(new Random()));
 
         var score = game.play();
 
