@@ -20,8 +20,6 @@ public class Playfield {
     private int row;
     private int col;
 
-    //Updated constructor to check and add random blocks to beginning
-
     /**
      * Sole constructor of Playfield
      *
