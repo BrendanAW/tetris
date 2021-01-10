@@ -5,6 +5,7 @@ import com.epam.prejap.tetris.game.*;
 import com.epam.prejap.tetris.player.Player;
 import com.epam.prejap.tetris.player.RandomPlayer;
 
+import java.util.Arrays;
 import java.util.Random;
 
 class Tetris {
@@ -49,9 +50,13 @@ class Tetris {
         int delay = 500;
 
         var timer = new Timer(delay);
+
         var feed = new BlockFeed();
         var printer = new Printer(System.out, timer);
-        var playfield = new Playfield(rows, cols, feed, printer);
+        var grid = new Grid(feed, rows, cols);
+        grid.generateGrid(Arrays.asList(args));
+
+        var playfield = new Playfield(feed, printer, grid);
         var game = new Tetris(playfield, new Waiter(delay), new RandomPlayer(new Random()), timer);
 
 
