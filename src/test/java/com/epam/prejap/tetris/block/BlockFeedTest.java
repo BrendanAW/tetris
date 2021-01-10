@@ -42,4 +42,32 @@ public class BlockFeedTest {
         //then
         assertEquals(blocks.size(), 1);
     }
+
+    public void shallContainIBlock() {
+        //given
+        List<Supplier<Block>> feedList = new BlockFeed().blocks();
+
+        //when
+        boolean containsLBlock = feedList.stream()
+                .map(Supplier::get)
+                .anyMatch(e -> e instanceof LBlock);
+
+        //then
+        assertTrue(containsLBlock);
+    }
+
+    public void shallContainOnlyOneIBlock() {
+        //given
+        List<Supplier<Block>> feedList = new BlockFeed().blocks();
+
+        //when
+        long actual = feedList.stream()
+                .map(Supplier::get)
+                .filter(block -> block instanceof IBlock)
+                .count();
+
+        //then
+        assertEquals(actual, 1);
+    }
+
 }
