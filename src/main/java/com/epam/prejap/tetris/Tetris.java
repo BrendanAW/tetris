@@ -53,8 +53,8 @@ class Tetris {
 
         var feed = new BlockFeed();
         var printer = new Printer(System.out, timer);
-        var grid = new Grid(feed, rows, cols);
-        grid.generateGrid(Arrays.asList(args));
+        var flagPresent = Arrays.asList(args).contains("-rb");
+        var grid = Grid.getNewGrid(feed, rows, cols, flagPresent);
 
         var playfield = new Playfield(feed, printer, grid);
         var game = new Tetris(playfield, new Waiter(delay), new RandomPlayer(new Random()), timer);

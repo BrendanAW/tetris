@@ -16,13 +16,7 @@ public class Grid {
     private int row;
     private int col;
 
-    /**
-     * @param feed supplies grid with new blocks
-     * @param rows height of byteGrid
-     * @param cols width of byteGrid
-     */
-
-    public Grid(BlockFeed feed, int rows, int cols) {
+    private Grid(BlockFeed feed, int rows, int cols) {
         this.feed = feed;
         this.rows = rows;
         this.cols = cols;
@@ -30,16 +24,21 @@ public class Grid {
     }
 
     /**
-     * Populates grid with random blocks if argument present
-     *
-     * @param args to be checked for flag -rb or -RB
+     * @param feed           supplies grid with new blocks
+     * @param rows           height of byteGrid
+     * @param cols           width of byteGrid
+     * @param addExtraBlocks to determine if blocks will be added
+     * @return
      */
-    public void generateGrid(List<String> args) {
-        if (args.isEmpty() || !(args.contains("-rb") || args.contains("-RB")))
-            return;
-        var starterBlockAmt = (int) (Math.random() * cols / 4) + 1;
-        IntStream.rangeClosed(0, starterBlockAmt).forEach(i -> addStarterBlocks());
+    public static Grid getNewGrid(BlockFeed feed, int rows, int cols, boolean addExtraBlocks) {
+        var grid = new Grid(feed, rows, cols);
+        if (addExtraBlocks) {
+            var starterBlockAmt = (int) (Math.random() * cols / 4) + 1;
+            IntStream.rangeClosed(0, starterBlockAmt).forEach(i -> grid.addStarterBlocks());
+        }
+        return grid;
     }
+
 
     void show(Block block) {
         forEachBrick(((i, j, dot) -> byteGrid[i + row][j + col] = dot), block);
