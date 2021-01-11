@@ -11,8 +11,6 @@ public class Playfield {
     private final Grid grid;
 
     /**
-     * Sole constructor of Playfield
-     *
      * @param feed    block generator
      * @param printer displays grid to user via System.out
      * @param grid    starting
@@ -28,7 +26,7 @@ public class Playfield {
      */
     public void nextBlock() {
         block = feed.nextBlock();
-        grid.newBlock(block);
+        grid.newBlock(block.cols());
         show(block);
     }
 
