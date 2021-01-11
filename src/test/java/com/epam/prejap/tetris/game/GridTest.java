@@ -33,7 +33,7 @@ public class GridTest {
         //Both arrays begin empty
         byte[][] original = Arrays.stream(grid.byteGrid).map(byte[]::clone).toArray(byte[][]::new);
         var block = feed.nextBlock();
-        grid.newBlock(block);
+        grid.newBlock(block.cols());
         grid.show(block);
         //Test to show block added
         assertFalse(Arrays.deepEquals(original, grid.byteGrid), "Next block called, yet no changes occured");

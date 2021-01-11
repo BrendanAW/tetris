@@ -28,7 +28,7 @@ public class Grid {
      * @param rows           height of byteGrid
      * @param cols           width of byteGrid
      * @param addExtraBlocks to determine if blocks will be added
-     * @return
+     * @return new Grid with updatedByteGrid
      */
     public static Grid getNewGrid(BlockFeed feed, int rows, int cols, boolean addExtraBlocks) {
         var grid = new Grid(feed, rows, cols);
@@ -38,7 +38,6 @@ public class Grid {
         }
         return grid;
     }
-
 
     void show(Block block) {
         forEachBrick(((i, j, dot) -> byteGrid[i + row][j + col] = dot), block);
@@ -55,7 +54,7 @@ public class Grid {
                 if (dot > 0) {
                     int newRow = row + i + rowOffset;
                     int newCol = col + j + colOffset;
-                    if (newRow >= rows || newCol >= cols || byteGrid[newRow][newCol] > 0) {
+                    if (newRow >= rows || newCol >= cols || newRow < 0 || newCol < 0 || byteGrid[newRow][newCol] > 0) {
                         return false;
                     }
                 }
@@ -64,9 +63,9 @@ public class Grid {
         return true;
     }
 
-    void newBlock(Block block) {
+    void newBlock(int blockCols) {
         row = 0;
-        col = (cols - block.cols()) / 2;
+        col = (cols - blockCols) / 2;
     }
 
     void doMove(int rowOffset, int colOffset) {
