@@ -14,8 +14,11 @@
             </run>
         </groups>
         <classes>
+            <class name="com.epam.prejap.tetris.block.OBlockTest"/>
+            <class name="com.epam.prejap.tetris.block.JBlockTest"/>
             <class name="com.epam.prejap.tetris.block.LBlockTest"/>
-            <class name="com.epam.prejap.tetris.block.BlockFeedTest"/>
+            <class name="com.epam.prejap.tetris.block.IBlockTest"/>
+            <class name="com.epam.prejap.tetris.block.BlockFeedTestFactory"/>
             <class name="com.epam.prejap.tetris.player.RandomPlayerTest"/>
             <class name="com.epam.prejap.tetris.game.PrinterTest"/>
             <class name="com.epam.prejap.tetris.game.TimerTest"/>

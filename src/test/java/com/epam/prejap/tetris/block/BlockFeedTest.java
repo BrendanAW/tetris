@@ -2,18 +2,21 @@ package com.epam.prejap.tetris.block;
 
 import org.testng.annotations.Test;
 
-import java.util.List;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 
 @Test(groups = "Block")
 public class BlockFeedTest {
 
+    private final Class<? extends Block> blockChildClass;
+
+    public BlockFeedTest(Class<? extends Block> blockChildClass) {
+        this.blockChildClass = blockChildClass;
+    }
+
     @Test
-    public void shallContainLBlock() {
+    public void shallContainSpecificBlock() {
         //given
         BlockFeed feed = new BlockFeed();
 
@@ -21,53 +24,25 @@ public class BlockFeedTest {
         boolean containsLBlock = feed.blocks()
                 .stream()
                 .map(Supplier::get)
-                .anyMatch(e -> e instanceof LBlock);
+                .anyMatch(blockChildClass::isInstance);
 
         //then
         assertTrue(containsLBlock);
     }
 
-    @Test(dependsOnMethods = "shallContainLBlock")
-    public void shallContainOnlyOneLBlock() {
+    @Test(dependsOnMethods = "shallContainSpecificBlock")
+    public void shallContainOnlyOneBlockOfThatType() {
         //given
         BlockFeed feed = new BlockFeed();
 
         //when
-        List<Block> blocks = feed.blocks()
+        var numOfBlocks = feed.blocks()
                 .stream()
                 .map(Supplier::get)
-                .filter(e -> e instanceof LBlock)
-                .collect(Collectors.toList());
-
-        //then
-        assertEquals(blocks.size(), 1);
-    }
-
-    public void shallContainIBlock() {
-        //given
-        List<Supplier<Block>> feedList = new BlockFeed().blocks();
-
-        //when
-        boolean containsLBlock = feedList.stream()
-                .map(Supplier::get)
-                .anyMatch(e -> e instanceof LBlock);
-
-        //then
-        assertTrue(containsLBlock);
-    }
-
-    public void shallContainOnlyOneIBlock() {
-        //given
-        List<Supplier<Block>> feedList = new BlockFeed().blocks();
-
-        //when
-        long actual = feedList.stream()
-                .map(Supplier::get)
-                .filter(block -> block instanceof IBlock)
+                .filter(blockChildClass::isInstance)
                 .count();
 
         //then
-        assertEquals(actual, 1);
+        assertEquals(numOfBlocks, 1);
     }
-
 }
