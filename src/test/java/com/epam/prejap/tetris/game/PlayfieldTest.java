@@ -35,12 +35,17 @@ public class PlayfieldTest {
         while (grid.byteGrid[0][blockStart] != 1)
             blockStart++;
 
+        //getLength of block based off starting dot in row 0
         for (int i = 0; i < rows; i++) {
-            if (grid.byteGrid[i][blockStart] != 1)
-                break;
+            if (grid.byteGrid[i][blockStart] != 1) {
+                if (length == 1)
+                    blockStart++;
+                else break;
+            }
             length++;
         }
 
+        //move block down to bottom of grid
         while (playfield.move(move))
             count++;
 

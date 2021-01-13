@@ -53,7 +53,7 @@ class Tetris {
 
         var feed = new BlockFeed();
         var printer = new Printer(System.out, timer);
-        var flagPresent = Arrays.asList(args).contains("-rb");
+        var flagPresent = Arrays.asList(args).contains("-rb") | Arrays.asList(args).contains("-RB");
         var grid = Grid.getNewGrid(feed, rows, cols, flagPresent);
 
         var playfield = new Playfield(feed, printer, grid);
