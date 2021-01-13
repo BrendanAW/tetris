@@ -6,6 +6,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 import static org.testng.Assert.*;
 
@@ -85,6 +86,8 @@ public class GridTest {
 
     @DataProvider
     public Object[][] gridWithRandomBlocks() {
-        return new Object[][]{{Grid.getNewGrid(feed, rows, cols, true)}};
+        //Created an array of grids to quickly test the randomness of generated block rather than calling the same test x amount of times
+        var numOfTests = 100;
+        return IntStream.rangeClosed(0, numOfTests).mapToObj(i -> new Object[]{Grid.getNewGrid(feed, rows, cols, true)}).toArray(Object[][]::new);
     }
 }

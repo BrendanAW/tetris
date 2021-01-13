@@ -5,10 +5,12 @@ import com.epam.prejap.tetris.block.BlockFeed;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
 /**
  * Class contains byte array responsible for storing data of {@link Block} locations
+ *
  * @author Brendan Williams
  */
 public class Grid {
@@ -79,11 +81,12 @@ public class Grid {
 
     private void addStarterBlocks() {
         var block = feed.nextBlock();
+        Supplier<Integer> randomCol = () -> (int) (Math.random() * (cols - block.cols()));
         row = rows - block.rows();
-        col = (int) (Math.random() * cols - 1);
+        col = randomCol.get();
         while (blockSpaceIsObstructed(block)) {
             if (row <= rows / 2) {
-                col = (int) (Math.random() * cols - 1);
+                col = randomCol.get();
                 row = rows - block.rows();
             } else
                 row--;
