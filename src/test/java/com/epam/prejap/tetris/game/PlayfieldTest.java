@@ -54,7 +54,9 @@ public class PlayfieldTest {
 
     @DataProvider
     public Object[][] arrayOfMoves() {
-        return IntStream.rangeClosed(0, 15).boxed().map(i -> new Object[]{Move.values()[i % 3]}).toArray(Object[][]::new);
+        var amtOfIterations = 15;
+        var amtOfPossibleMoves = Move.values().length;
+        return IntStream.rangeClosed(0, amtOfIterations).mapToObj(i -> new Object[]{Move.values()[i % amtOfPossibleMoves]}).toArray(Object[][]::new);
     }
 
 }

@@ -2,13 +2,10 @@ package com.epam.prejap.tetris.game;
 
 import com.epam.prejap.tetris.block.Block;
 import com.epam.prejap.tetris.block.BlockFeed;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import static org.testng.Assert.*;
 
@@ -50,15 +47,22 @@ public class GridTest {
 
         //potential moves
         var count = getCount(block, grid);
+        var amountOfOptions = getActualNumberOfPossibleMoves(rows, cols, block);
 
         //assertion takes calculated area of options and compares to actual options
-        assertEquals(count, ((rows - block.rows() + 1) * (cols - block.cols() + 1)), "Count should be equal to calculated potential moves");
+        assertEquals(count, amountOfOptions, "Count should be equal to calculated potential moves");
 
+        //updates grid to contain random blocks
         grid = Grid.getNewGrid(feed, rows, cols, true);
 
         count = getCount(block, grid);
+        amountOfOptions = getActualNumberOfPossibleMoves(rows, cols, block);
         //assertion takes total calculation of potential area to place blocks, disregarding placed blocks and compares to actual options
-        assertNotSame(count, ((rows - block.rows() + 1) * (cols - block.cols() + 1)), "Count should not be equal to total");
+        assertNotSame(count, amountOfOptions, "Count should not be equal to total");
+    }
+
+    private int getActualNumberOfPossibleMoves(int rows, int cols, Block block) {
+        return (rows - block.rows() + 1) * (cols - block.cols() + 1);
     }
 
     private int getCount(Block block, Grid grid) {
