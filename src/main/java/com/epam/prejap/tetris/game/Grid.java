@@ -7,6 +7,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
+/**
+ * Class contains byte array responsible for storing data of {@link Block} locations
+ * @author Brendan Williams
+ */
 public class Grid {
     final byte[][] byteGrid;
     private final int rows;
