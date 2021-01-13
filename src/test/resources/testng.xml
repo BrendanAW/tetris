@@ -10,6 +10,7 @@
             <run>
                 <include name="Block"/>
                 <include name="Player"/>
+                <include name="NavigationKeys"/>
                 <include name="Timer"/>
             </run>
         </groups>
@@ -20,6 +21,8 @@
             <class name="com.epam.prejap.tetris.block.IBlockTest"/>
             <class name="com.epam.prejap.tetris.block.BlockFeedTestFactory"/>
             <class name="com.epam.prejap.tetris.player.RandomPlayerTest"/>
+            <class name="com.epam.prejap.tetris.game.MoveTest"/>
+            <class name="com.epam.prejap.tetris.CommandLineAnalystTest"/>
             <class name="com.epam.prejap.tetris.game.PrinterTest"/>
             <class name="com.epam.prejap.tetris.game.TimerTest"/>
         </classes>
