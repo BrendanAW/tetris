@@ -5,8 +5,22 @@
 <!-- *************************************************************** -->
 
 <suite name="TetrisSuite" time-out="10000" verbose="1">
-    <test name="CompleteTests">
+    <test name="TetrisTests">
         <groups>
+            <define name="Block">
+                <include name="BlockFeed" />
+                <include name="LBlock" />
+                <include name="SBlock" />
+                <include name="IBlock" />
+                <include name="OBlock" />
+                <include name="JBlock" />
+            </define>
+            <define name="Player">
+                <include name="RandomPlayer" />
+            </define>
+            <define name="Game">
+                <include name="Timer" />
+            </define>
             <run>
                 <include name="Block"/>
                 <include name="Player"/>
@@ -15,6 +29,7 @@
             </run>
         </groups>
         <classes>
+            <class name="com.epam.prejap.tetris.block.SBlockTest"/>
             <class name="com.epam.prejap.tetris.block.OBlockTest"/>
             <class name="com.epam.prejap.tetris.block.JBlockTest"/>
             <class name="com.epam.prejap.tetris.block.LBlockTest"/>

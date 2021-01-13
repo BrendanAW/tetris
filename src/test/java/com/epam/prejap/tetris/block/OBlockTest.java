@@ -6,7 +6,7 @@ import org.testng.asserts.SoftAssert;
 
 import static org.testng.Assert.*;
 
-@Test(groups = "Block")
+@Test(groups = {"Block", "OBlock"})
 public class OBlockTest {
 
     @Test

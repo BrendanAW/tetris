@@ -8,7 +8,7 @@ public class BlockFeed {
 
     private final Random rnd = new Random();
     private final List<Supplier<Block>> blocks = List.of(
-        OBlock::new, LBlock::new, IBlock::new, JBlock::new
+        OBlock::new, LBlock::new, IBlock::new, JBlock::new, SBlock::new
     );
 
     public BlockFeed() {
@@ -21,4 +21,5 @@ public class BlockFeed {
     List<Supplier<Block>> blocks() {
         return blocks;
     }
+
 }

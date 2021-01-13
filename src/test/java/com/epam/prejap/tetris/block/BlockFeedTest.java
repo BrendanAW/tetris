@@ -1,12 +1,13 @@
 package com.epam.prejap.tetris.block;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.function.Supplier;
 
 import static org.testng.Assert.*;
 
-@Test(groups = "Block")
+@Test(groups = "BlockFeed")
 public class BlockFeedTest {
 
     private final Class<? extends Block> blockChildClass;
