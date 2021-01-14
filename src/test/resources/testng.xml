@@ -8,23 +8,26 @@
     <test name="TetrisTests">
         <groups>
             <define name="Block">
-                <include name="BlockFeed" />
-                <include name="LBlock" />
-                <include name="SBlock" />
-                <include name="IBlock" />
-                <include name="OBlock" />
-                <include name="JBlock" />
+                <include name="BlockFeed"/>
+                <include name="LBlock"/>
+                <include name="SBlock"/>
+                <include name="IBlock"/>
+                <include name="OBlock"/>
+                <include name="JBlock"/>
             </define>
             <define name="Player">
-                <include name="RandomPlayer" />
+                <include name="RandomPlayer"/>
             </define>
             <define name="Game">
-                <include name="Timer" />
+                <include name="Timer"/>
+                <include name="Grid"/>
+                <include name="Playfield"/>
             </define>
             <run>
                 <include name="Block"/>
                 <include name="Player"/>
                 <include name="NavigationKeys"/>
+                <include name="Game"/>
                 <include name="Timer"/>
                 <include name="Color"/>
             </run>
@@ -40,6 +43,8 @@
             <class name="com.epam.prejap.tetris.game.MoveTest"/>
             <class name="com.epam.prejap.tetris.CommandLineAnalystTest"/>
             <class name="com.epam.prejap.tetris.game.PrinterTest"/>
+            <class name="com.epam.prejap.tetris.game.GridTest"/>
+            <class name="com.epam.prejap.tetris.game.PlayfieldTest"/>
             <class name="com.epam.prejap.tetris.game.TimerTest"/>
             <class name="com.epam.prejap.tetris.block.Color"/>
         </classes>
