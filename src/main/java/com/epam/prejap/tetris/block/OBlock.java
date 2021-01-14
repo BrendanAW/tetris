@@ -16,7 +16,7 @@ final class OBlock extends Block {
     };
 
     public OBlock() {
-        super(IMAGE);
+        super(IMAGE, Color.BLUE);
     }
 
 }

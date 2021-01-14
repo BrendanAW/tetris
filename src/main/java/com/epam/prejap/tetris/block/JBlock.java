@@ -17,6 +17,6 @@ final class JBlock extends Block {
     };
 
     JBlock() {
-        super(IMAGE);
+        super(IMAGE, Color.YELLOW);
     }
 }

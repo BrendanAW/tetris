@@ -1,13 +1,13 @@
 package com.epam.prejap.tetris.game;
 
+import com.epam.prejap.tetris.block.Color;
 import org.mockito.Mockito;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 @Test(groups = "Timer")
@@ -46,5 +46,32 @@ public class PrinterTest {
         // then
         Mockito.verify(printer).header();
         assertTrue(bos.toString().contains(message));
+    }
+
+
+
+    @Test(groups = "Color", dataProvider = "colors")
+    public void checkIfPrintMethodPrintsStringWithAppropriateColor(Color color) {
+        // given
+        Timer timer = Mockito.mock(Timer.class);
+        Printer printer = Mockito.spy(new Printer(new PrintStream(bos), timer));
+        int ansiCode = color.getAnsiCode();
+        String escape =  "\u001B[";
+        String finalByte = "m";
+        String resetColor = escape + "0" + finalByte;
+        String blockMark = "#";
+        String expected = escape + ansiCode + finalByte + blockMark + resetColor;
+
+        // when
+        printer.print(color.getId());
+
+        // then
+        assertEquals(bos.toString(), expected);
+    }
+
+
+    @DataProvider
+    private Object[] colors() {
+        return Color.values();
     }
 }

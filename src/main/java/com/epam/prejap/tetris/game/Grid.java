@@ -46,11 +46,11 @@ public class Grid {
     }
 
     void show(Block block) {
-        forEachBrick(((i, j, dot) -> byteGrid[i + row][j + col] = dot), block);
+        forEachBrick(((i, j) -> byteGrid[i + row][j + col] = block.getColorId()), block);
     }
 
     void hide(Block block) {
-        forEachBrick(((i, j, dot) -> byteGrid[i + row][j + col] = 0), block);
+        forEachBrick(((i, j) -> byteGrid[i + row][j + col] = 0), block);
     }
 
     boolean isValidMove(Block block, int rowOffset, int colOffset) {
@@ -91,7 +91,7 @@ public class Grid {
             } else
                 row--;
         }
-        forEachBrick(((i, j, dot) -> byteGrid[row + i][col + j] = dot), block);
+        forEachBrick(((i, j) -> byteGrid[row + i][col + j] = block.getColorId()), block);
     }
 
     private boolean blockSpaceIsObstructed(Block block) {
@@ -109,13 +109,13 @@ public class Grid {
             for (int j = 0; j < block.cols(); j++) {
                 var dot = block.dotAt(i, j);
                 if (dot > 0) {
-                    action.act(i, j, dot);
+                    action.act(i, j);
                 }
             }
         }
     }
 
     private interface BrickAction {
-        void act(int i, int j, byte dot);
+        void act(int i, int j);
     }
 }

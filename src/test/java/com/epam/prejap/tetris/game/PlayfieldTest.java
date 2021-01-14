@@ -32,12 +32,12 @@ public class PlayfieldTest {
         var count = 0;
 
         //finds if playField.nextBlock generates block on Grid byteField
-        while (grid.byteGrid[0][blockStart] != 1)
+        while (grid.byteGrid[0][blockStart] == 0)
             blockStart++;
 
         //getLength of block based off starting dot in row 0
         for (int i = 0; i < rows; i++) {
-            if (grid.byteGrid[i][blockStart] != 1) {
+            if (grid.byteGrid[i][blockStart] == 0) {
                 if (length == 1)
                     blockStart++;
                 else break;

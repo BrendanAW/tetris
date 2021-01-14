@@ -1,12 +1,16 @@
 package com.epam.prejap.tetris.block;
 
+import java.util.Objects;
+
 public abstract class Block {
 
     final byte[][] image;
     final int rows;
     final int cols;
+    private final Color color;
 
-    Block(byte[][] dots) {
+    Block(byte[][] dots, Color color) {
+        this.color = color;
         rows = dots.length;
         if (dots.length == 0) {
             throw new IllegalArgumentException("Image has height equal to 0");
@@ -37,6 +41,10 @@ public abstract class Block {
 
     public byte dotAt(int i, int j) {
         return image[i][j];
+    }
+
+    public byte getColorId() {
+        return Objects.requireNonNullElse(color, Color.BLACK).getId();
     }
 
 }

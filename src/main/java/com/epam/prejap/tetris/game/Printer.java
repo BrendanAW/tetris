@@ -1,11 +1,14 @@
 package com.epam.prejap.tetris.game;
 
+import com.epam.prejap.tetris.block.Color;
+
 import java.io.PrintStream;
 import java.time.Duration;
 
 public class Printer {
 
     private static final String TIME_FORMAT = "%02d:%02d:%02d";
+    private static final String BLOCK_MARK = "#";
     final PrintStream out;
     private final Timer timer;
 
@@ -32,8 +35,17 @@ public class Printer {
         out.print("\u001b[2J\u001b[H");
     }
 
-    void print(byte dot) {
-        out.format(dot == 0 ? " " : "#");
+    /**
+     * Print block mark with appropriate color, leave
+     * uncoloured empty string in case of zero in game's grid
+     *
+     * @param colorId   id of specific Color enumeration constant
+     * @since           0.8
+     * @see             Color
+     */
+    void print(byte colorId) {
+        String colored = Color.of(colorId).applyFor(BLOCK_MARK);
+        out.format(colorId == 0 ? " " : colored);
     }
 
     void startRow() {

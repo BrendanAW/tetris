@@ -14,6 +14,6 @@ final class SBlock extends Block {
     };
 
     public SBlock() {
-        super(IMAGE);
+        super(IMAGE, Color.MAGENTA);
     }
 }

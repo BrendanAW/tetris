@@ -16,7 +16,7 @@ final class LBlock extends Block{
     };
 
     LBlock() {
-        super(IMAGE);
+        super(IMAGE, Color.RED);
     }
 
 }

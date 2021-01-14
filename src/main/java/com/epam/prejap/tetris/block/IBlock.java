@@ -19,7 +19,7 @@ final class IBlock extends Block {
     };
 
     IBlock() {
-        super(IMAGE);
+        super(IMAGE, Color.GREEN);
     }
 
 }
